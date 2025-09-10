@@ -1,4 +1,5 @@
 require('dotenv').config()
+const cors = require('cors')
 const express = require("express")
 const mongoose = require("mongoose")
 const session = require('express-session')
@@ -7,6 +8,7 @@ const MongoStore = require("connect-mongo")(session);
 const app = express()
 const PORT = 8000
 
+app.use(cors())
 app.use(express.static("public")) // for static files 
 app.use(express.json())
 app.use(session({
