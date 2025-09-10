@@ -24,10 +24,10 @@ const getAll = async (req, res) => {
 const doseUsernameExist = async (req, res) => {
 
     try {
-        const username = req.params["username"]
+        const username = req.query["username"]
         const user = await User.findOne({ username: username })
 
-        if (user) res.status(409).json({ msg: "username exist" })
+        if (user) return res.status(409).json({ msg: "username exist" })
 
         return res.status(200).json({
             msg: "you can create user with this name"
@@ -44,10 +44,10 @@ const doseUsernameExist = async (req, res) => {
 const doseEmailExist = async (req, res) => {
 
     try {
-        const email = req.params["email"]
+        const email = req.query["email"]
         const user = await User.findOne({ email: email })
 
-        if (user) res.status(409).json({ msg: "email exist" })
+        if (user) return res.status(409).json({ msg: "email exist" })
 
         return res.status(200).json({
             msg: "you can create user with this email"

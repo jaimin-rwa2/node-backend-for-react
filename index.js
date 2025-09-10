@@ -8,6 +8,11 @@ const MongoStore = require("connect-mongo")(session);
 const app = express()
 const PORT = 8000
 
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', true)
+    next()
+})
 app.use(cors())
 app.use(express.static("public")) // for static files 
 app.use(express.json())

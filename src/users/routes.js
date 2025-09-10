@@ -5,8 +5,8 @@ const { profileUpload } = require("../config/multerConfig")
 const routes = express.Router()
 
 // read
-routes.get("/doseEmailExist/:email", user.doseEmailExist)
-routes.get("/doseUsernameExist/:username", user.doseUsernameExist)
+routes.get("/doseEmailExist", user.doseEmailExist)
+routes.get("/doseUsernameExist", user.doseUsernameExist)
 
 // 1. read All
 routes.get("/", user.getAll)
