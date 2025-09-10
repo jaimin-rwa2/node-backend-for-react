@@ -1,5 +1,6 @@
 const express = require("express")
 const user = require("./controlers")
+const { profileUpload } = require("../config/multerConfig")
 
 const routes = express.Router()
 
@@ -14,7 +15,7 @@ routes.get("/", user.getAll)
 routes.get("/:id", user.getOne)
 
 // update
-routes.put("/:id", user.updateOne)
+routes.put("/:id", profileUpload.single(""), user.updateOne)
 
 // delete
 routes.delete("/:id", user.deleteOne)

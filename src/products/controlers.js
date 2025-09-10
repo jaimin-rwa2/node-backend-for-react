@@ -38,9 +38,6 @@ const getOne = async (req, res) => {
 const createOne = async (req, res) => {
     try {
 
-        console.log("req.body : ", req.body)
-        console.log("req.file : ", req.file)
-
         let file = ""
         if (req.file?.filename) {
             file = req.file.filename
@@ -129,4 +126,4 @@ const deleteOne = async (req, res) => {
     }
 }
 
-module.exports = { getAll, getOne, createOne, deleteOne, updateOne, getData }
+module.exports = { getAll, getOne, createOne, deleteOne, updateOne }

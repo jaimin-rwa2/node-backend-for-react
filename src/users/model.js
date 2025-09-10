@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema({
     },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     roles: { type: Number, enum: [USER_ROLES.ADMIN, USER_ROLES.BUYER, USER_ROLES.SELLER], default: USER_ROLES.BUYER },
-    verified: { type: Boolean, default: false }
+    verified: { type: Boolean, default: false },
+    image: { type: String, default: "" }
 })
 
 

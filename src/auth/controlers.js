@@ -8,13 +8,20 @@ const OTP_STORE = {}
 
 const register = async (req, res) => {
     try {
+
+        let file = ""
+        if (req.file?.filename) {
+            file = req.file.filename
+        }
+
+
         const { username, password, email, role } = req.body;
 
         if (role === USER_ROLES.ADMIN) return res.status(403).json({ msg: "You cannot register as an admin" });
 
         const hashedPassword = bcrypt.hashSync(password, saltRounds)
 
-        await User.create({ username, password: hashedPassword, email, roles: role });
+        await User.create({ username, password: hashedPassword, email, roles: role, image: file });
 
         let otp = ""
 

@@ -1,10 +1,11 @@
 const express = require("express")
 const user = require("./controlers")
 const { authUser } = require("./middleware")
+const { profileUpload } = require("../config/multerConfig")
 
 const routes = express.Router()
 
-routes.post("/register", user.register)
+routes.post("/register", profileUpload.single("image"), user.register)
 routes.post("/registerVerifyOtp", user.registerVerifyOtp)
 routes.post("/login", user.login)
 routes.post("/sendOtp", user.sendOTP)

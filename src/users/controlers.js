@@ -1,4 +1,7 @@
 const User = require("./model")
+const fs = require("fs")
+const path = require("path")
+
 
 const getAll = async (req, res) => {
 
@@ -84,7 +87,19 @@ const updateOne = async (req, res) => {
         if (!user) return res.status(404).json({ msg: "user not found" })
         const { contectNo, email } = req.body;
 
-        await User.findOneAndUpdate({ _id: id }, { contectNo, email })
+        let file = user.image
+        let oldFile = ""
+        if (req.file?.filename) {
+            oldFile = file
+            file = req.file.filename
+        }
+
+        await User.findOneAndUpdate({ _id: id }, { contectNo, email, image: file })
+
+        if (oldFile) {
+            file_path = path.join(__dirname, "..", "..", "public", "profiles", user.image)
+            fs.unlinkSync(file_path)
+        }
 
         return res.status(200).json({ msg: "user updated successfuly" })
     } catch (error) {
@@ -102,7 +117,18 @@ const deleteOne = async (req, res) => {
         const id = req.params["id"]
         const user = await User.findById(id)
         if (!user) return res.status(404).json({ msg: "user not found" })
+
+        let file_path = ""
+        if (user.image) {
+            file_path = path.join(__dirname, "..", "..", "public", "profiles", user.image)
+        }
+
+
         await User.findByIdAndDelete(id)
+
+        if (user.image) {
+            fs.unlinkSync(file_path)
+        }
         return res.status(200).json({ msg: `User Deleted Successfuly` })
     } catch (error) {
         console.log(error)
